@@ -20,10 +20,10 @@ namespace MineSweeper
 
         public int Width { get; }
         public int Height { get; }
-        public int Mines { get; }
+        public int Mines { get; protected set; }
 
-        public int[,] Board { get; }
-        public int[,] Player { get; }
+        protected int[,] Board { get; }
+        protected int[,] Player { get; }
         public enum GameStates
         {
             Active,
@@ -48,6 +48,7 @@ namespace MineSweeper
 
         public Game(int width, int height, int mines)
         {
+            if (width * height - mines < 0) throw new ArgumentException("There are more mines than spaces.");
             Width = width;
             Height = height;
             Mines = mines;
@@ -58,11 +59,11 @@ namespace MineSweeper
             CalculateNumbers();
         }
 
-        private void SetMines()
+        protected void SetMines()
         {
             var minesToPlace = Mines;
             var random = new Random();
-            do
+            while (minesToPlace > 0)
             {
                 long x = random.NextInt64(Width);
                 long y = random.NextInt64(Height);
@@ -71,10 +72,10 @@ namespace MineSweeper
                     Board[x, y] = -1;
                     minesToPlace--;
                 }
-            } while (minesToPlace > 0);
+            } ;
         }
 
-        private void CalculateNumbers()
+        protected void CalculateNumbers()
         {
             for (int y = 0; y < Height; y++)
             {
@@ -96,19 +97,21 @@ namespace MineSweeper
             }
         }
 
-        public void Draw()
+        public string Draw()
         {
+            var result = new StringBuilder();
             for (int y = 0; y < Height; y++)
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    if (Player[x, y] == -1) Console.Write("* ");
-                    if (Player[x, y] == 0) Console.Write(". ");
-                    if (Player[x, y] == 1) Console.Write($"{Board[x, y]} ");
-                    if (Player[x, y] == 2) Console.Write("X ");
+                    if (Player[x, y] == -1) result.Append("* ");
+                    if (Player[x, y] == 0) result.Append(". ");
+                    if (Player[x, y] == 1) result.Append($"{Board[x, y]} ");
+                    if (Player[x, y] == 2) result.Append("X ");
                 }
-                Console.WriteLine();
+                result.AppendLine();
             }
+            return result.ToString();
         }
 
         public void Move(int xPlay, int yPlay)
@@ -117,8 +120,7 @@ namespace MineSweeper
             {
                 int x = xPlay - 1;
                 int y = yPlay - 1;
-                if (Player[x, y] == 1) return; // Marked already
-                if (Player[x, y] == -1) return; // Explored
+                if (Player[x, y] == -1) return; // Marked already
 
                 // If a mine, then game over.
                 if (Board[x, y] == -1)

@@ -3,12 +3,12 @@ using MineSweeper;
 
 Console.WriteLine("Welcome to Mine Sweeper!");
 
-var game = new Game(20, 10, 20);
+var game = new Game(10, 10, 10);
 
 
 do
 {
-    game.Draw();
+    Console.Write(game.Draw());
     Console.WriteLine("Enter move x,y or *x,y to mark a mine");
     var input = Console.ReadLine();
     if (input != null)
@@ -35,7 +35,7 @@ do
 } while (game.GameState == Game.GameStates.Active);
 
 
-game.Draw();
+    Console.Write(game.Draw());
 if (game.GameState == Game.GameStates.Won) Console.WriteLine("You Win!");
 if (game.GameState == Game.GameStates.Lost) Console.WriteLine("Sorry, you found a mine");
 
