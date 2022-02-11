@@ -12,3 +12,8 @@ In this case I wanted to see if I could write a simple console-based mine sweepe
 * If a revealed cell is a 0, the reveal all adjacent cells recursively.
 * Mark and unmark mines with *x,y
 * Identify when the user has revealed all cells besides the mines and end game with a win.
+* Unit testing on the Game class
+ 
+## Development Notes
+* Initial game took 1 hour.
+* Unit testing took 1 hour.
