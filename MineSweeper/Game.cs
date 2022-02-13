@@ -48,7 +48,7 @@ namespace MineSweeper
 
         public Game(int width, int height, int mines)
         {
-            if (width * height - mines < 0) throw new ArgumentException("There are more mines than spaces.");
+            if (width * height < mines) throw new ArgumentException("There are more mines than spaces.");
             Width = width;
             Height = height;
             Mines = mines;
@@ -72,7 +72,7 @@ namespace MineSweeper
                     Board[x, y] = -1;
                     minesToPlace--;
                 }
-            } ;
+            };
         }
 
         protected void CalculateNumbers()
@@ -183,7 +183,7 @@ namespace MineSweeper
             {
                 int newX = x + direction.x;
                 int newY = y + direction.y;
-                if (newX >= 0 && newX < Width && y + newY >= 0 && newY < Height)
+                if (newX >= 0 && newX < Width && newY >= 0 && newY < Height)
                 {
                     if (Player[newX, newY] == 0) // Unexplored
                     {

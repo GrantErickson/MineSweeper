@@ -30,12 +30,12 @@ do
                 }
             }
         }
-    } 
+    }
     Console.WriteLine();
 } while (game.GameState == Game.GameStates.Active);
 
 
-    Console.Write(game.Draw());
+Console.Write(game.Draw());
 if (game.GameState == Game.GameStates.Won) Console.WriteLine("You Win!");
 if (game.GameState == Game.GameStates.Lost) Console.WriteLine("Sorry, you found a mine");
 

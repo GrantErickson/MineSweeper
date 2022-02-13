@@ -57,11 +57,29 @@ namespace MineSweeper.Tests
             Assert.AreEqual(1, game.GetBoard(1, 1));
             Assert.AreEqual(1, game.GetBoard(2, 1));
             Assert.AreEqual(1, game.GetBoard(3, 1));
-            Assert.AreEqual(1, game.GetBoard(2, 1));
+            Assert.AreEqual(1, game.GetBoard(1, 2));
             Assert.AreEqual(-1, game.GetBoard(2, 2));
-            Assert.AreEqual(1, game.GetBoard(2, 3));
-            Assert.AreEqual(1, game.GetBoard(3, 1));
             Assert.AreEqual(1, game.GetBoard(3, 2));
+            Assert.AreEqual(1, game.GetBoard(1, 3));
+            Assert.AreEqual(1, game.GetBoard(2, 3));
+            Assert.AreEqual(1, game.GetBoard(3, 3));
+        }
+
+        [TestMethod]
+        public void NumberFill4()
+        {
+            var game = new GameHarness(3, 3, 0);
+
+            game.SetMine(2, 2);
+            game.SetMine(1, 1);
+            Assert.AreEqual(-1, game.GetBoard(1, 1));
+            Assert.AreEqual(2, game.GetBoard(2, 1));
+            Assert.AreEqual(1, game.GetBoard(3, 1));
+            Assert.AreEqual(2, game.GetBoard(1, 2));
+            Assert.AreEqual(-1, game.GetBoard(2, 2));
+            Assert.AreEqual(1, game.GetBoard(3, 2));
+            Assert.AreEqual(1, game.GetBoard(1, 3));
+            Assert.AreEqual(1, game.GetBoard(2, 3));
             Assert.AreEqual(1, game.GetBoard(3, 3));
         }
 

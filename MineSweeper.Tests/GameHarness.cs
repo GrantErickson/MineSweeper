@@ -54,6 +54,14 @@ namespace MineSweeper.Tests
         {
             Board[x - 1, y - 1] = -1;
             Mines++;
+            // Clear existing numbers
+            for (int y1 = 0; y1 < Height; y1++)
+            {
+                for (int x1 = 0; x1 < Width; x1++)
+                {
+                    if (Board[x1, y1] > 0) Board[x1, y1] = 0;
+                }
+            }
             CalculateNumbers();
         }
 
